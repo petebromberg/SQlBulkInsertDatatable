@@ -34,7 +34,7 @@ namespace SQlBulkInsertDatatable
                 {
                     sbc.DestinationTableName = "dbo.CSV";
                     sbc.BulkCopyTimeout = 0;
-                    sbc.BatchSize = 100000;
+                    sbc.BatchSize = dt.Rows.Count;
                     await sbc.WriteToServerAsync(dt);
                 }
             }
