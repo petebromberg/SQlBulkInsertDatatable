@@ -10,17 +10,23 @@ namespace SQlBulkInsertDatatable
 {
     class Program
     {
+        static float loadTime = 0;
+        static float insertTime = 0;
         static void Main(string[] args)
         {
             Stopwatch s = new Stopwatch();
             s.Start();
             string path = @"C:\TEMP\cSun_tSSB_6000y_x5d.tsv\cSun_tSSB_6000y_x5d.csv";
             DataTable dt = Convert.ConvertCSVToDataTable(path);
+            s.Stop();
+            loadTime = s.ElapsedMilliseconds;
+            s.Start();
             Task.Run(async () => await Execute(dt)).Wait();
             s.Stop();
-            Console.WriteLine("Read and  inserted " + dt.Rows.Count.ToString() + " rows to database in " + s.ElapsedMilliseconds + " ms.");
+            insertTime = s.ElapsedMilliseconds;
+            Console.WriteLine("Read in " + loadTime.ToString() + "ms  and  inserted " + dt.Rows.Count.ToString() + " rows to database in " + insertTime.ToString() + "ms.");
         }
-
+        
         public static async Task Execute(DataTable dt)
         {
             string connStr = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
