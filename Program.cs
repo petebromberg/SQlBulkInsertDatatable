@@ -36,6 +36,7 @@ namespace SQlBulkInsertDatatable
                     sbc.BulkCopyTimeout = 0;
                     sbc.BatchSize = dt.Rows.Count;
                     await sbc.WriteToServerAsync(dt);
+                    sbc.Close();
                 }
             }
             catch (Exception ex)
