@@ -20,6 +20,7 @@ namespace SQlBulkInsertDatatable
             DataTable dt = Convert.ConvertCSVToDataTable(path);
             s.Stop();
             loadTime = s.ElapsedMilliseconds;
+            s.Reset();
             s.Start();
             Task.Run(async () => await Execute(dt)).Wait();
             s.Stop();
