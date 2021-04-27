@@ -30,5 +30,14 @@ namespace SQlBulkInsertDatatable
             }
             return dt;
         }
+
+
+        public static DataTable CopyRows(this DataTable from, DataTable to, int min, int max)
+        {
+            for (int i = min; i < max && i < from.Rows.Count; i++)
+                to.ImportRow(from.Rows[i]);
+                    return to;
+
+        }
     }
 }
